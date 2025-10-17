@@ -3,3 +3,4 @@ uv.lock
 .env
 main.py
 .idea/
+agent/__pycache__/
