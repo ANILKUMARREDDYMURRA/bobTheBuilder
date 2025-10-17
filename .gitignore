@@ -1,5 +1,4 @@
 uv.lock
 .venv/
-.env
 .idea/
 agent/__pycache__/
