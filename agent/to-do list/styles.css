@@ -1,0 +1,354 @@
+/*
+  styles.css – Global CSS reset, theme variables, layout, components, and responsive design.
+  This stylesheet defines a colorful theme with light and dark palettes, and provides the
+  necessary styles for the application layout, form elements, task list items, and UI
+  components such as the theme toggle and filter navigation.
+*/
+
+/* ------------------------------------------------------------
+   1. CSS Reset & Box‑Sizing
+   ------------------------------------------------------------ */
+
+/*
+  A minimal reset that removes default margins/paddings, sets a consistent
+  box‑sizing model, and normalises typographic defaults.
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ------------------------------------------------------------
+   2. Theme Variables – Light & Dark Palettes
+   ------------------------------------------------------------ */
+
+:root {
+  /* Primary palette */
+  --color-primary: #3498db;   /* bright blue */
+  --color-primary-dark: #2980b9;
+
+  /* Secondary palette */
+  --color-secondary: #2ecc71; /* emerald */
+  --color-secondary-dark: #27ae60;
+
+  /* Accent palette */
+  --color-accent: #e74c3c;    /* alizarin */
+  --color-accent-dark: #c0392b;
+
+  /* Light mode colors */
+  --color-bg: #f5f5f5;        /* page background */
+  --color-surface: #ffffff;   /* cards, panels */
+  --color-text: #333333;      /* primary text */
+  --color-muted: #777777;    /* secondary text */
+
+  /* Typography */
+  --font-family: "Helvetica Neue", Arial, sans-serif;
+
+  /* Spacing */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+}
+
+/* Dark theme overrides – applied when .dark-theme is present on <body> */
+
+.dark-theme {
+  --color-bg: #1e1e1e;
+  --color-surface: #2c2c2c;
+  --color-text: #f0f0f0;
+  --color-muted: #bbbbbb;
+
+  /* Optionally swap primary/secondary for a darker feel */
+  --color-primary: #5dade2;
+  --color-primary-dark: #3498db;
+  --color-secondary: #58d68d;
+  --color-secondary-dark: #2ecc71;
+  --color-accent: #ec7063;
+  --color-accent-dark: #e74c3c;
+}
+
+/* ------------------------------------------------------------
+   3. Global Layout – Body & #app Container
+   ------------------------------------------------------------ */
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* top‑aligned, but centered horizontally */
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  padding: var(--spacing-lg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#app {
+  width: 100%;
+  max-width: 800px;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+  background-color: var(--color-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+/* ------------------------------------------------------------
+   4. Header & Footer – Flex Layout
+   ------------------------------------------------------------ */
+
+header, footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 8px;
+}
+
+header h1, footer p {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+/* ------------------------------------------------------------
+   5. Form Elements – Input, Textarea, Submit Button
+   ------------------------------------------------------------ */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--color-muted);
+  border-radius: 6px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+button[type="submit"] {
+  align-self: flex-end;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--color-primary-dark);
+}
+
+button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* ------------------------------------------------------------
+   6. Theme Toggle Button – Icon Styling
+   ------------------------------------------------------------ */
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#theme-toggle:hover {
+  color: var(--color-accent);
+}
+
+/* ------------------------------------------------------------
+   7. Filter Navigation – Buttons
+   ------------------------------------------------------------ */
+
+#filter-nav {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+#filter-nav button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-muted);
+  color: var(--color-bg);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#filter-nav button.active {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+#filter-nav button:hover:not(.active) {
+  background-color: var(--color-primary-dark);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------
+   8. Task List & Task Item Styling
+   ------------------------------------------------------------ */
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-muted);
+  border-radius: 8px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.task-item .drag-handle {
+  cursor: grab;
+  font-size: 1.2rem;
+  color: var(--color-muted);
+}
+
+.task-item .title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.task-item .description {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.task-item .complete-checkbox {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--color-primary);
+}
+
+.task-item .actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.task-item .actions button {
+  background: none;
+  color: var(--color-muted);
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.task-item .actions button:hover {
+  color: var(--color-accent);
+}
+
+/* Completed state */
+.task-item.completed {
+  opacity: 0.6;
+}
+
+.task-item.completed .title,
+.task-item.completed .description {
+  text-decoration: line-through;
+}
+
+/* ------------------------------------------------------------
+   9. Responsive Design
+   ------------------------------------------------------------ */
+
+/* Mobile – stack elements vertically */
+@media (max-width: 600px) {
+  header, footer {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+
+  .task-item {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .task-item .actions {
+    justify-self: end;
+    grid-column: 2 / -1;
+  }
+}
+
+/* Desktop – keep horizontal layout */
+@media (min-width: 601px) {
+  .task-item {
+    grid-template-columns: auto 1fr auto auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   10. Utility Classes (optional) – can be used by JS
+   ------------------------------------------------------------ */
+
+.hidden {
+  display: none !important;
+}
+
+/* End of styles.css */

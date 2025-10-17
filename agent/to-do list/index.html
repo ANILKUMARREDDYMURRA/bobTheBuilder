@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorfulTodo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>ColorfulTodo</h1>
+            <button id="theme-toggle" aria-label="Toggle light/dark mode">🌓</button>
+        </header>
+        <main>
+            <form id="new-task-form" aria-label="Add new task">
+                <input type="text" id="task-title" placeholder="Task title" required aria-required="true" />
+                <textarea id="task-desc" placeholder="Optional description" aria-label="Task description"></textarea>
+                <button type="submit">Add Task</button>
+            </form>
+            <nav id="filter-nav" aria-label="Task filters">
+                <button data-filter="all" class="filter active" aria-pressed="true">All</button>
+                <button data-filter="active" class="filter" aria-pressed="false">Active</button>
+                <button data-filter="completed" class="filter" aria-pressed="false">Completed</button>
+            </nav>
+            <ul id="task-list" class="task-list" aria-live="polite"></ul>
+        </main>
+        <footer>
+            <p>© 2025 ColorfulTodo. Built with ❤️.</p>
+        </footer>
+    </div>
+</body>
+</html>
